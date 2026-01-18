@@ -2,6 +2,17 @@
 
 Webアプリケーションは **UI層** と **App層** を分離して実装しなければならない。
 
+また、追加で **API層** を含める場合もある。
+
+## ディレクトリ構成
+
+```
+├── app/              # App層
+├── api/              # API層(Optional)
+├── src/              # UI層
+└── package.json など
+```
+
 ## UI層（UI）
 
 **UI** はVueやReactなど一般的なWebアプリケーションリポジトリの `src` ディレクトリに実装されるものである。
@@ -82,3 +93,9 @@ app/
 ```
 
 この例外により、 **app** はデータ管理とビジネスロジックを明確に分離して実装できる。
+
+## API層
+
+API層を持つ場合はリポジトリを monorepo にし、 `api/` 配下にバックエンドを実装する。
+
+API は [ActionAPI](https://raw.githubusercontent.com/madakaheri/steerings/refs/heads/main/docs/ActionAPI%E5%AE%9F%E8%A3%85%E8%A6%8F%E7%B4%84.md) として実装する。
