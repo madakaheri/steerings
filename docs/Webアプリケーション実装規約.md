@@ -98,4 +98,4 @@ app/
 
 API層を持つ場合はリポジトリを monorepo にし、 `api/` 配下にバックエンドを実装する。
 
-API は [ActionAPI](https://raw.githubusercontent.com/madakaheri/steerings/refs/heads/main/docs/ActionAPI%E5%AE%9F%E8%A3%85%E8%A6%8F%E7%B4%84.md) として実装する。
+API は [ActionsAPI](https://raw.githubusercontent.com/madakaheri/steerings/refs/heads/main/docs/ActionsAPI%E5%AE%9F%E8%A3%85%E8%A6%8F%E7%B4%84.md) として実装する。

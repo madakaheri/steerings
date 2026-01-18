@@ -6,4 +6,4 @@
 
 - [JavaScriptモジュール実装規約](./docs/JavaScriptモジュール実装規約.md) - JavaScriptモジュール実装の詳細な規約とルール（ActionModule と FeatureModule の定義を含む）
 - [Webアプリケーション実装規約](./docs/Webアプリケーション実装規約.md) - UI層とApp層の分離に関する実装規約（app を FeatureModule として実装）
-- [ActionAPI実装規約](./docs/ActionAPI実装規約.md) - ActionAPI の実装規約（POST専用REST API、ルーティング、エラーハンドリング）
+- [ActionsAPI実装規約](./docs/ActionsAPI実装規約.md) - ActionsAPI の実装規約（POST専用REST API、ルーティング、エラーハンドリング）
