@@ -18,14 +18,18 @@ UI層はVueやReactなど一般的なWebアプリケーションリポジトリ�
 - app は複数の機能（Feature）を `app/features` ディレクトリ直下に作成して機能を追加する
 - `app/features/index.js` により、`app/features` 内の各モジュールは全て export される
 - `app/features/index.js` によって export された各機能は `app/index.js` を介して外部に公開される
+- app は app 自体の機能として `utils` ディレクトリを持つことが可能である
+- `utils` はあくまで app の内部実装であり、ここから直接外部へ公開してはならない
 
 ```
 app/
 ├── index.js              # appのエントリーポイント
-└── features/             # 機能を格納するディレクトリ
-    ├── index.js          # 各機能をexport
-    ├── <Feature1>/
-    ├── <Feature2>/
+├── features/             # 機能を格納するディレクトリ
+│   ├── index.js          # 各機能をexport
+│   ├── <Feature1>/
+│   ├── <Feature2>/
+│   └── ...
+└── utils/                # app内共通処理（オプション）
     └── ...
 ```
 
