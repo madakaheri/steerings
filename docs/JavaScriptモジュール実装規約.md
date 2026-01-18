@@ -45,19 +45,19 @@ ActionModule は複数のアクションを管理するモジュール構成で�
 
 #### ActionModuleDirectory
 
-1. ActionModuleは ActionModuleDirectory にネストして作成する。
+1. ActionModule は ActionModuleDirectory にネストして作成する。
 2. ActionModuleDirectory は機能名で命名されたモジュールディレクトリである。
-3. ActionModuleのエントリーファイルは ActionModuleDirectory 直下の index.js によって公開される。
+3. ActionModule のエントリーファイルは ActionModuleDirectory 直下の index.js によって公開される。
 4. ActionModule は Action のみを外部に公開する。
-5. ActionModule はモジュール内で共通の処理を ActionModuleDirectory 直下のutilsディレクトリ内に作成することができる。
+5. ActionModule はモジュール内で共通の処理を ActionModuleDirectory 直下の utils ディレクトリ内に作成できる。
 
 #### Action
 
 1. Action は ActionModuleDirectory 直下の actions ディレクトリ直下に ActionDirectory を作成して追加する。
 2. Action のエントリーファイルは ActionDirectory 直下の index.js によって公開される。
-3. Action はシングルアクションコントローラーであり、 export 出来るのはディレクトリ名と一致したアクション関数のみである。
+3. Action はシングルアクションコントローラーであり、export できるのはディレクトリ名と一致したアクション関数のみである。
 4. index.js は実行ステップが明快になるよう、Step を使用して実装される。
-5. Action は Action 内で共通の処理を ActionDirectory 直下のutilsディレクトリ内に作成することができる。
+5. Action は Action 内で共通の処理を ActionDirectory 直下の utils ディレクトリ内に作成できる。
 6. Action は次章の Step を用いたステップコントローラーとして実装する。
 7. Action は同じ `actions` ディレクトリ内の Action を import して使用可能である。
 
@@ -66,15 +66,15 @@ ActionModule は複数のアクションを管理するモジュール構成で�
 1. Step は Action のコード行数を削減し、実行ステップを明快にし、可読性を向上させるための仕組みである。
 2. Step は ActionDirectory 直下の steps ディレクトリ直下に作成する。
 3. Step は関数名と一致したファイルとして作成する。
-4. 各種 Step ファイルから export 出来るのは1つの関数のみである。
+4. 各種 Step ファイルから export できるのは 1 つの関数のみである。
 5. **Step は別の Step を import してはならない。** 共通処理が必要な場合は `utils` を使用する。
 
 #### utils
 
 1. **utils はモジュールの内部機能として実装し、モジュール外へ公開してはならない。**
 2. utils はそのモジュール内でのみ使用され、外部から直接 import することを禁止する。
-3. Module 直下の utils はそのModule内のすべてのコンポーネント（actions、steps等）から使用できる。
-4. Action 直下の utils はそのAction内のコンポーネント（steps等）からのみ使用できる。
+3. Module 直下の utils はその Module 内のすべてのコンポーネント（actions、steps 等）から使用できる。
+4. Action 直下の utils はその Action 内のコンポーネント（steps 等）からのみ使用できる。
 
 ## FeatureModule
 
@@ -86,9 +86,9 @@ FeatureModule は複数の ActionModule を集約するモジュール構成で�
 
 ```
 <FeatureModuleName>/
-├── index.js                      # FeatureModuleのエントリーポイント
+├── index.js                      # FeatureModule のエントリーポイント
 ├── features/                     # 機能（ActionModule）を格納するディレクトリ
-│   ├── index.js                 # 各機能をexport
+│   ├── index.js                 # 各機能を export
 │   ├── <Feature1>/              # ActionModule
 │   │   ├── index.js             
 │   │   ├── actions/
@@ -105,7 +105,7 @@ FeatureModule は複数の ActionModule を集約するモジュール構成で�
 │   │   │   └── ...
 │   │   └── utils/
 │   └── ...
-└── utils/                        # FeatureModule内共通処理（オプション）
+└── utils/                        # FeatureModule 内共通処理（オプション）
     └── ...
 ```
 
@@ -115,8 +115,8 @@ FeatureModule はディレクトリ内に `actions` ディレクトリを作成�
 
 ```
 <FeatureModuleName>/
-├── index.js                      # FeatureModuleのエントリーポイント
-├── actions/                      # FeatureModule自身のアクション（オプション）
+├── index.js                      # FeatureModule のエントリーポイント
+├── actions/                      # FeatureModule 自身のアクション（オプション）
 │   ├── <DirectActionName1>/
 │   │   ├── index.js
 │   │   └── steps/
@@ -140,7 +140,7 @@ FeatureModule はディレクトリ内に `actions` ディレクトリを作成�
 
 1. FeatureModule は ModuleDirectory 直下の features ディレクトリに機能を格納する。
 2. features ディレクトリ直下に index.js を配置し、各機能を export する。
-3. FeatureModule のエントリーポイント（ModuleDirectory直下のindex.js）は、features/index.jsを介して各機能を外部に公開する。
+3. FeatureModule のエントリーポイント（ModuleDirectory 直下の index.js）は、features/index.js を介して各機能を外部に公開する。
 4. 各機能は ActionModule として実装される。
 
 #### Feature
@@ -153,8 +153,8 @@ FeatureModule はディレクトリ内に `actions` ディレクトリを作成�
 
 #### FeatureModule の制約
 
-1. **FeatureModuleの子の制限**: FeatureModuleが 持つ Feature は ActionModule に限定され、 FeatureModule の子として FeatureModule を定義することはできない。
-2. **ActionModuleとしての拡張**: FeatureModule はディレクトリ内に `actions` ディレクトリを作成して、 ActionModule としての構成を持つことができる。
+1. **FeatureModule の子の制限**: FeatureModule が持つ Feature は ActionModule に限定され、FeatureModule の子として FeatureModule を定義することはできない。
+2. **ActionModule としての拡張**: FeatureModule はディレクトリ内に `actions` ディレクトリを作成して、ActionModule としての構成を持つことができる。
 
 ## 使用方法
 
