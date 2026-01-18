@@ -144,6 +144,34 @@ FeatureModuleは複数のActionModuleを集約するモジュール構成であ�
 4. Featureはfeatures/index.jsを通じて外部に公開される。
 5. 直接パス指定でFeature内部の実装をimportしてはならない。
 
+### FeatureModuleの追加規約
+
+1. **FeatureModuleの子の制限**: FeatureModuleが持つFeatureはActionModuleに限定され、FeatureModuleの子としてFeatureModuleを定義することは禁止する。
+2. **ActionModuleとしての拡張**: FeatureModuleはディレクトリ内に `actions` ディレクトリを作成して、ActionModuleとしての構成が extend されてもよい。
+
+#### ActionModuleとして拡張されたFeatureModuleの例
+
+```
+<FeatureModuleName>/
+├── index.js                      # FeatureModuleのエントリーポイント
+├── actions/                      # FeatureModule自身のアクション（オプション）
+│   ├── <DirectActionName1>/
+│   │   ├── index.js
+│   │   └── steps/
+│   └── <DirectActionName2>/
+│       ├── index.js
+│       └── steps/
+├── features/                     # 機能（ActionModule）を格納するディレクトリ
+│   ├── index.js
+│   ├── <Feature1>/              # ActionModule
+│   │   ├── index.js
+│   │   └── actions/
+│   └── <Feature2>/              # ActionModule
+│       ├── index.js
+│       └── actions/
+└── utils/
+```
+
 ### 使用方法
 
 FeatureModuleは以下のように使用する。
@@ -151,3 +179,24 @@ FeatureModuleは以下のように使用する。
 ```javascript
 featureModule.feature.featureActionName();
 ```
+
+## 依存方向の制限
+
+モジュール実装における依存関係を明確にするため、以下の制限を設ける。
+
+### Actionの相互参照
+
+1. 同じ `actions` ディレクトリ内のActionは相互に import が可能である。
+2. Actionは自身が属するModuleの他のActionを参照できる。
+
+### Stepの独立性
+
+1. **Stepは別のStepをimportしてはならない。**
+2. 各Stepは独立した関数として実装し、共通処理が必要な場合は `utils` を使用する。
+
+### utilsの内部性
+
+1. **utilsはモジュールの内部機能として実装し、モジュール外へ公開してはならない。**
+2. utilsはそのモジュール内でのみ使用され、外部から直接importすることを禁止する。
+3. Module直下のutilsはそのModule内のすべてのコンポーネント（actions、steps等）から使用できる。
+4. Action直下のutilsはそのAction内のコンポーネント（steps等）からのみ使用できる。
