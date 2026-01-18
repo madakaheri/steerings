@@ -1,13 +1,5 @@
 # Webアプリケーション実装規約
 
-> **注意:** この文書の内容は [JavaScriptモジュール実装規約](./JavaScriptモジュール実装規約.md) にマージされました。
-> 
-> Webアプリケーションの実装にあたっては、[JavaScriptモジュール実装規約](./JavaScriptモジュール実装規約.md) の **FeatureModule** を参照してください。
->
-> この文書は参考情報として残されています。
-
----
-
 Webアプリケーションは **UI層** と **App層** を分離して実装しなければならない。
 
 ## UI層
@@ -18,12 +10,15 @@ UI層はVueやReactなど一般的なWebアプリケーションリポジトリ�
 
 これはレンダリングに関する実装に依存しない純粋なJavaScriptモジュールとしてUI層に対して公開される。
 
+appは [JavaScriptモジュール実装規約](./JavaScriptモジュール実装規約.md) の **FeatureModule** として実装される。
+
 ### ディレクトリ構成
 
 - app は `src` ディレクトリと同階層に作成される `app` ディレクトリ内に実装される
 - app は `app/index.js` のみを公開し、それ以外を直接パス指定で import してはいけない
 - app は app のみを export する
 - app は複数の機能（Feature）を `app/features` ディレクトリ直下に作成して機能を追加する
+- 各Featureは ActionModule として実装される
 - `app/features/index.js` により、`app/features` 内の各モジュールは全て export される
 - `app/features/index.js` によって export された各機能は `app/index.js` を介して外部に公開される
 - app は app 自体の機能として `utils` ディレクトリを持つことが可能である
@@ -34,11 +29,25 @@ app/
 ├── index.js              # appのエントリーポイント
 ├── features/             # 機能を格納するディレクトリ
 │   ├── index.js          # 各機能をexport
-│   ├── <Feature1>/
-│   ├── <Feature2>/
+│   ├── <Feature1>/       # ActionModuleとして実装
+│   │   ├── index.js
+│   │   ├── actions/
+│   │   └── utils/
+│   ├── <Feature2>/       # ActionModuleとして実装
+│   │   ├── index.js
+│   │   ├── actions/
+│   │   └── utils/
 │   └── ...
 └── utils/                # app内共通処理（オプション）
     └── ...
+```
+
+### 使用方法
+
+appは以下のように使用する。
+
+```javascript
+app.featureName.actionName();
 ```
 
 ### appの機能
@@ -46,3 +55,27 @@ app/
 #### Data
 
 app は初期状態で `app.$data` に Empty Object を持ち、Feature 毎に管理したい Object形式 の FeatureModel を保持する。
+
+#### 例外：$data と model.js
+
+appはFeatureModuleとして実装されるが、以下の例外がある。
+
+1. **$data**: appは `app.$data` という特別なプロパティを持つ。これはFeatureModuleの通常の規約から外れた実装である。
+2. **model.js**: 各Featureは必要に応じて `model.js` を持つことができる。これは FeatureModel の型定義や初期値を定義するためのファイルである。
+
+```
+app/
+├── index.js
+├── $data                         # 例外: データストア
+├── features/
+│   ├── index.js
+│   ├── <Feature1>/
+│   │   ├── index.js
+│   │   ├── model.js              # 例外: FeatureModelの定義
+│   │   ├── actions/
+│   │   └── utils/
+│   └── ...
+└── utils/
+```
+
+この例外により、appはデータ管理とビジネスロジックを明確に分離して実装できる。
