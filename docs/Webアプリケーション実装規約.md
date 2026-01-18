@@ -24,7 +24,7 @@ Webアプリケーションは **UI層** と **App層** を分離して実装し
 
 これはレンダリングに関する実装に依存しない純粋なJavaScriptモジュールとしてUI層に対して公開される。
 
-appは [JavaScriptモジュール実装規約](https://raw.githubusercontent.com/madakaheri/steerings/refs/heads/main/docs/JavaScript%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E5%AE%9F%E8%A3%85%E8%A6%8F%E7%B4%84.md) の **FeatureModule** として実装される。
+appは [モジュール実装規約](https://raw.githubusercontent.com/madakaheri/steerings/refs/heads/main/docs/JavaScript%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E5%AE%9F%E8%A3%85%E8%A6%8F%E7%B4%84.md) の **FeatureModule** として実装される。
 
 ### ディレクトリ構成
 
