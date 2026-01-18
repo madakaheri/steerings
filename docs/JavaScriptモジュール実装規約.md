@@ -1,10 +1,10 @@
 # JavaScriptモジュール実装規約
 
-このリポジトリの実装ではモジュール実装規約を厳守しなければならない。
+このリポジトリの実装ではモジュール実装規約を厳守しなければならない。  
 
 ## 例外への対応
 
-ここに定義したモジュール構成を外れた実装をする場合は、AGENTS.mdに明示的に記述する必要がある。
+ここに定義したモジュール構成を外れた実装をする場合は、ドキュメントに明示的に記述する必要がある。
 
 ## モジュールの種類
 
@@ -15,9 +15,9 @@
 
 ## ActionModule
 
-ActionModuleは複数のアクションを管理するモジュール構成である。
+ActionModule は複数のアクションを管理するモジュール構成である。
 
-### ディレクトリ構成
+### ActionModule のディレクトリ構成
 
 ```
 <ModuleName>/
@@ -43,42 +43,42 @@ ActionModuleは複数のアクションを管理するモジュール構成で�
 
 ### 実装規約
 
-#### ModuleDirectory
+#### ActionModuleDirectory
 
-1. ModuleはModuleDirectoryにネストして作成する。
-2. ModuleDirectoryは機能名で命名されたモジュールディレクトリである。
-3. ModuleのエントリーファイルはModuleDirectory直下のindex.jsによって公開される。
-4. ModuleはModuleActionのみを外部に公開する。
-5. Moduleはモジュール内で共通の処理をModuleDirectory直下のutilsディレクトリ内に作成することができる。
+1. ActionModuleは ActionModuleDirectory にネストして作成する。
+2. ActionModuleDirectory は機能名で命名されたモジュールディレクトリである。
+3. ActionModuleのエントリーファイルは ActionModuleDirectory 直下の index.js によって公開される。
+4. ActionModule は Action のみを外部に公開する。
+5. ActionModule はモジュール内で共通の処理を ActionModuleDirectory 直下のutilsディレクトリ内に作成することができる。
 
-#### ModuleAction
+#### Action
 
-1. ModuleActionはModuleDirectory直下のactionsディレクトリ直下にActionDirectoryを作成して追加する。
-2. ActionのエントリーファイルはActionDirectory直下のindex.jsによって公開される。
-3. Actionはシングルアクションコントローラーであり、export出来るのはアクション関数のみである。
-4. index.jsは実行ステップが明快になるよう、Stepを使用して実装される。
-5. ActionはAction内で共通の処理をActionDirectory直下のutilsディレクトリ内に作成することができる。
-6. ActionはStep関数を用いたステップコントローラーとして実装する。
-7. 同じ `actions` ディレクトリ内のActionは相互にimportが可能である。
+1. Action は ActionModuleDirectory 直下の actions ディレクトリ直下に ActionDirectory を作成して追加する。
+2. Action のエントリーファイルは ActionDirectory 直下の index.js によって公開される。
+3. Action はシングルアクションコントローラーであり、 export 出来るのはディレクトリ名と一致したアクション関数のみである。
+4. index.js は実行ステップが明快になるよう、Step を使用して実装される。
+5. Action は Action 内で共通の処理を ActionDirectory 直下のutilsディレクトリ内に作成することができる。
+6. Action は次章の Step を用いたステップコントローラーとして実装する。
+7. Action は同じ `actions` ディレクトリ内の Action を import して使用可能である。
 
-#### Step
+#### Step 
 
-1. StepはActionのコード行数を削減し、実行ステップを明快にし、可読性を向上させるための仕組みである。
-2. StepはActionDirectory直下のstepsディレクトリ直下に作成する。
-3. Stepは関数名と一致したファイルとして作成する。
-4. 各種Stepファイルからexport出来るのは1つの関数のみである。
-5. **Stepは別のStepをimportしてはならない。** 共通処理が必要な場合は `utils` を使用する。
+1. Step は Action のコード行数を削減し、実行ステップを明快にし、可読性を向上させるための仕組みである。
+2. Step は ActionDirectory 直下の steps ディレクトリ直下に作成する。
+3. Step は関数名と一致したファイルとして作成する。
+4. 各種 Step ファイルから export 出来るのは1つの関数のみである。
+5. **Step は別の Step を import してはならない。** 共通処理が必要な場合は `utils` を使用する。
 
 #### utils
 
-1. **utilsはモジュールの内部機能として実装し、モジュール外へ公開してはならない。**
-2. utilsはそのモジュール内でのみ使用され、外部から直接importすることを禁止する。
-3. Module直下のutilsはそのModule内のすべてのコンポーネント（actions、steps等）から使用できる。
-4. Action直下のutilsはそのAction内のコンポーネント（steps等）からのみ使用できる。
+1. **utils はモジュールの内部機能として実装し、モジュール外へ公開してはならない。**
+2. utils はそのモジュール内でのみ使用され、外部から直接 import することを禁止する。
+3. Module 直下の utils はそのModule内のすべてのコンポーネント（actions、steps等）から使用できる。
+4. Action 直下の utils はそのAction内のコンポーネント（steps等）からのみ使用できる。
 
 ## FeatureModule
 
-FeatureModuleは複数のActionModuleを集約するモジュール構成である。
+FeatureModule は複数の ActionModule を集約するモジュール構成である。
 
 ### ディレクトリ構成
 
@@ -109,9 +109,9 @@ FeatureModuleは複数のActionModuleを集約するモジュール構成であ�
     └── ...
 ```
 
-#### ActionModuleとして拡張された構成（オプション）
+#### ActionModule として拡張された構成（オプション）
 
-FeatureModuleはディレクトリ内に `actions` ディレクトリを作成して、ActionModuleとしての構成を持つことができる。
+FeatureModule はディレクトリ内に `actions` ディレクトリを作成して、 ActionModule としての構成を持つことができる。
 
 ```
 <FeatureModuleName>/
@@ -138,23 +138,23 @@ FeatureModuleはディレクトリ内に `actions` ディレクトリを作成�
 
 #### FeatureModuleDirectory
 
-1. FeatureModuleはModuleDirectory直下のfeaturesディレクトリに機能を格納する。
-2. featuresディレクトリ直下にindex.jsを配置し、各機能をexportする。
-3. FeatureModuleのエントリーポイント（ModuleDirectory直下のindex.js）は、features/index.jsを介して各機能を外部に公開する。
-4. 各機能はActionModuleとして実装される。
+1. FeatureModule は ModuleDirectory 直下の features ディレクトリに機能を格納する。
+2. features ディレクトリ直下に index.js を配置し、各機能を export する。
+3. FeatureModule のエントリーポイント（ModuleDirectory直下のindex.js）は、features/index.jsを介して各機能を外部に公開する。
+4. 各機能は ActionModule として実装される。
 
 #### Feature
 
-1. FeatureはFeatureModuleDirectory直下のfeaturesディレクトリ直下にFeatureDirectoryを作成して追加する。
-2. FeatureのエントリーファイルはFeatureDirectory直下のindex.jsによって公開される。
-3. FeatureはActionModuleとして実装され、ActionModuleの規約に従う。
-4. Featureはfeatures/index.jsを通じて外部に公開される。
-5. 直接パス指定でFeature内部の実装をimportしてはならない。
+1. Feature は FeatureModuleDirectory 直下の features ディレクトリ直下に FeatureDirectory を作成して追加する。
+2. Feature のエントリーファイルは FeatureDirectory 直下の index.js によって公開される。
+3. Feature は ActionModule として実装され、 ActionModule の規約に従う。
+4. Feature は features/index.js を通じて外部に公開される。
+5. 直接パス指定で Feature 内部の実装を import してはならない。
 
-#### FeatureModuleの制約
+#### FeatureModule の制約
 
-1. **FeatureModuleの子の制限**: FeatureModuleが持つFeatureはActionModuleに限定され、FeatureModuleの子としてFeatureModuleを定義することは禁止する。
-2. **ActionModuleとしての拡張**: FeatureModuleはディレクトリ内に `actions` ディレクトリを作成して、ActionModuleとしての構成を持つことができる。
+1. **FeatureModuleの子の制限**: FeatureModuleが 持つ Feature は ActionModule に限定され、 FeatureModule の子として FeatureModule を定義することはできない。
+2. **ActionModuleとしての拡張**: FeatureModule はディレクトリ内に `actions` ディレクトリを作成して、 ActionModule としての構成を持つことができる。
 
 ## 使用方法
 
