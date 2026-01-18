@@ -17,15 +17,15 @@
 
 ### ModuleAction
 
-1. ModuleActionはModuleDirectory直下のactionsディレクトリ直下にActionDirectryを作成して追加する。
-2. ActionのエントリーファイルはActionDirectry直下のindex.jsによって公開される。
+1. ModuleActionはModuleDirectory直下のactionsディレクトリ直下にActionDirectoryを作成して追加する。
+2. ActionのエントリーファイルはActionDirectory直下のindex.jsによって公開される。
 3. Actionはシングルアクションコントローラーであり、export出来るのはアクション関数のみである。
 4. index.jsは実行ステップが明快になるよう、Stepを使用して実装される。
-5. ActionはAction内で共通の処理をActionDirectry直下のutilsディレクトリ内に作成することができる。
+5. ActionはAction内で共通の処理をActionDirectory直下のutilsディレクトリ内に作成することができる。
 
 #### Step
 
 1. StepはActionのコード行数を削減し、実行ステップを明快にし、可読性を向上させるための仕組みである。
-2. StepはActionDirectry直下のstepsディレクトリ直下に作成する。
+2. StepはActionDirectory直下のstepsディレクトリ直下に作成する。
 3. Stepは関数名と一致したファイルとして作成する。
 4. 各種Stepファイルからexport出来るのは1つの関数のみである。
