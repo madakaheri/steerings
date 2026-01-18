@@ -2,6 +2,30 @@
 
 このリポジトリの実装ではモジュール実装規約を厳守しなければならない。
 
+## ディレクトリ構成の全体像
+
+```
+<ModuleName>/
+├── index.js                      # モジュールのエントリーポイント
+├── actions/                      # アクションを格納するディレクトリ
+│   ├── <ActionName1>/
+│   │   ├── index.js             # アクションのエントリーポイント
+│   │   ├── steps/               # ステップを格納するディレクトリ
+│   │   │   ├── <stepName1>.js
+│   │   │   ├── <stepName2>.js
+│   │   │   └── ...
+│   │   └── utils/               # アクション内共通処理（オプション）
+│   │       └── ...
+│   └── <ActionName2>/
+│       ├── index.js
+│       ├── steps/
+│       │   └── ...
+│       └── utils/
+│           └── ...
+└── utils/                        # モジュール内共通処理（オプション）
+    └── ...
+```
+
 ## Module
 
 すべての実装はモジュールまたはその派生として実装される。
@@ -15,6 +39,18 @@
 4. ModuleはModuleActionのみを外部に公開する。
 5. Moduleはモジュール内で共通の処理をModuleDirectory直下のutilsディレクトリ内に作成することができる。
 
+#### ディレクトリ構成
+
+```
+<ModuleName>/
+├── index.js          # モジュールのエントリーポイント（ModuleActionを公開）
+├── actions/          # ModuleActionを格納するディレクトリ
+│   ├── <ActionName1>/
+│   └── <ActionName2>/
+└── utils/            # モジュール内共通処理（オプション）
+    └── ...
+```
+
 ### ModuleAction
 
 1. ModuleActionはModuleDirectory直下のactionsディレクトリ直下にActionDirectoryを作成して追加する。
@@ -22,6 +58,19 @@
 3. Actionはシングルアクションコントローラーであり、export出来るのはアクション関数のみである。
 4. index.jsは実行ステップが明快になるよう、Stepを使用して実装される。
 5. ActionはAction内で共通の処理をActionDirectory直下のutilsディレクトリ内に作成することができる。
+
+#### ディレクトリ構成
+
+```
+<ActionName>/
+├── index.js          # アクションのエントリーポイント（アクション関数を公開）
+├── steps/            # 実行ステップを格納するディレクトリ
+│   ├── <stepName1>.js
+│   ├── <stepName2>.js
+│   └── ...
+└── utils/            # アクション内共通処理（オプション）
+    └── ...
+```
 
 #### Step
 
